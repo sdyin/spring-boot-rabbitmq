@@ -35,6 +35,7 @@ public class Receive {
   @RabbitListener(queues = MqConstant.QUEUE_SDYIN_DEMO)
   public void receiveConfirm(String message,Channel channel,@Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
     try {
+      //手动确认消息: ack
       channel.basicAck(tag,false);
       //确认消息
       System.out.println("接收方: 接收mq消息:"+ message);

@@ -62,7 +62,8 @@ public class RabbitConfig {
     return BindingBuilder.bind(QueueC).to(fanoutExchange);
   }
 
-  @Bean
+  //配置文件配置开启ack 或者 代码注入配置
+  /*@Bean
   public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory){
     SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
@@ -70,9 +71,7 @@ public class RabbitConfig {
     //开启手动 ack
     factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
     return factory;
-  }
-
-
+  }*/
 
 
 

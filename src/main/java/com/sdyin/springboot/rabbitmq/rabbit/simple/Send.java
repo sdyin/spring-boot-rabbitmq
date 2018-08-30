@@ -54,7 +54,6 @@ public class Send implements RabbitTemplate.ReturnCallback,RabbitTemplate.Confir
     });
     rabbitTemplate.convertAndSend(MqConstant.QUEUE_SDYIN_DEMO, context);
     //Object obj = rabbitTemplate.convertSendAndReceive(MqConstant.QUEUE_SDYIN_DEMO, context);
-
     return "";
   }
 

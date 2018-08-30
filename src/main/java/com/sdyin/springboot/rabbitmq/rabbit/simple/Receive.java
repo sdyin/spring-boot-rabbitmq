@@ -32,7 +32,6 @@ public class Receive {
    * @param message
    * @throws IOException
    */
-  @RabbitHandler
   @RabbitListener(queues = MqConstant.QUEUE_SDYIN_DEMO)
   public void receiveConfirm(String message,Channel channel,@Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
     try {

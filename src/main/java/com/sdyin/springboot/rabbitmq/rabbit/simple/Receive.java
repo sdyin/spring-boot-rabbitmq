@@ -3,8 +3,10 @@ package com.sdyin.springboot.rabbitmq.rabbit.simple;
 import com.rabbitmq.client.Channel;
 import com.sdyin.springboot.rabbitmq.rabbit.constant.MqConstant;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -30,16 +32,19 @@ public class Receive {
    * @param message
    * @throws IOException
    */
+  @RabbitHandler
   @RabbitListener(queues = MqConstant.QUEUE_SDYIN_DEMO)
-  public void receiveConfirm(Channel channel, Message message) throws IOException {
+  public void receiveConfirm(String message,Channel channel,@Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
     try {
-      channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
-      System.out.println("接收mq消息:"+ message);
+      channel.basicAck(tag,false);
+      //确认消息
+      System.out.println("接收方: 接收mq消息:"+ message);
     } catch (IOException e) {
       //丢弃消息
-      //channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false);
-      System.out.println("receiver fail");
+      //channel.basicNack(tag,false,false);
+      System.out.println("接收方: receiver fail");
     }
 
   }
+
 }

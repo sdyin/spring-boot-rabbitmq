@@ -1,10 +1,11 @@
 package com.sdyin.springboot.rabbitmq.rabbit.config;
 
 import com.sdyin.springboot.rabbitmq.rabbit.constant.MqConstant;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -60,6 +61,18 @@ public class RabbitConfig {
   Binding bindingExchangeB(Queue QueueC, FanoutExchange fanoutExchange) {
     return BindingBuilder.bind(QueueC).to(fanoutExchange);
   }
+
+  @Bean
+  public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(ConnectionFactory connectionFactory){
+    SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+    factory.setConnectionFactory(connectionFactory);
+    factory.setMessageConverter(new Jackson2JsonMessageConverter());
+    //开启手动 ack
+    factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
+    return factory;
+  }
+
+
 
 
 

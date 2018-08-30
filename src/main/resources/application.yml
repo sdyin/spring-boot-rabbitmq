@@ -8,17 +8,21 @@ spring:
     username: liuye
     password: liuye
     virtualHost: /
+    #å¼€å¯å‘é€ç¡®è®¤,è¿”å›
+    publisher-confirms: true
+    publisher-returns: true
     listener:
       simple:
-          retry:
-              #×î´óÖØÊÔ´ÎÊı
-              max-attempts: 5
-              #ÊÇ·ñ¿ªÆôÏû·ÑÕßÖØÊÔ£¨ÎªfalseÊ±¹Ø±ÕÏû·ÑÕßÖØÊÔ£¬ÕâÊ±Ïû·Ñ¶Ë´úÂëÒì³£»áÒ»Ö±ÖØ¸´ÊÕµ½ÏûÏ¢£©
-              enabled: true
-              #ÖØÊÔ¼ä¸ôÊ±¼ä£¨µ¥Î»ºÁÃë
-              initial-interval: 4000
-          #ÖØÊÔ´ÎÊı³¬¹ıÉÏÃæµÄÉèÖÃÖ®ºóÊÇ·ñ¶ªÆú£¨false²»¶ªÆúÊ±ĞèÒª´úÂëÊµÏÖ½«¸ÃÏûÏ¢¼ÓÈëËÀĞÅ¶ÓÁĞ£©
-          default-requeue-rejected: false
-          #¼òµ¥¶ÓÁĞ¿ªÆôack ÊÖ¶¯È·¶¨
-          acknowledge-mode: manual
-    publisher-confirms: true
+        retry:
+          #æœ€å¤§é‡è¯•æ¬¡æ•°
+          max-attempts: 5
+          #æ˜¯å¦å¼€å¯æ¶ˆè´¹è€…é‡è¯•ï¼ˆä¸ºfalseæ—¶å…³é—­æ¶ˆè´¹è€…é‡è¯•ï¼Œè¿™æ—¶æ¶ˆè´¹ç«¯ä»£ç å¼‚å¸¸ä¼šä¸€ç›´é‡å¤æ”¶åˆ°æ¶ˆæ¯ï¼‰
+          enabled: true
+          #é‡è¯•é—´éš”æ—¶é—´ï¼ˆå•ä½æ¯«ç§’
+          initial-interval: 4000
+        #é‡è¯•æ¬¡æ•°è¶…è¿‡ä¸Šé¢çš„è®¾ç½®ä¹‹åæ˜¯å¦ä¸¢å¼ƒï¼ˆfalseä¸ä¸¢å¼ƒæ—¶éœ€è¦ä»£ç å®ç°å°†è¯¥æ¶ˆæ¯åŠ å…¥æ­»ä¿¡é˜Ÿåˆ—ï¼‰
+        default-requeue-rejected: false
+        #ç®€å•é˜Ÿåˆ—å¼€å¯ack æ‰‹åŠ¨ç¡®å®š
+        acknowledge-mode: manual
+      direct:
+        acknowledge-mode: manual

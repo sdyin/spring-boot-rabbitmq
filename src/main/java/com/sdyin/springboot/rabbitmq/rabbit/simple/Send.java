@@ -1,6 +1,7 @@
 package com.sdyin.springboot.rabbitmq.rabbit.simple;
 
 import com.sdyin.springboot.rabbitmq.rabbit.constant.MqConstant;
+import com.sdyin.springboot.rabbitmq.rabbit.constant.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
@@ -34,6 +35,15 @@ public class Send implements RabbitTemplate.ReturnCallback,RabbitTemplate.Confir
     log.info("简单消息发送时间："+new Date());
     amqpTemplate.convertAndSend(MqConstant.QUEUE_NAME, context);
     System.out.println("发送完成");
+  }
+
+  public void sendTest(){
+    Person person = new Person();
+    person.setId(1);
+    person.setName("lisa");
+    System.out.println("测试发送实体类MQ");
+    amqpTemplate.convertAndSend(MqConstant.QUEUE_DEMO,person);
+    //rabbitTemplate.convertAndSend(MqConstant.QUEUE_DEMO,person);
   }
 
   /**

@@ -29,4 +29,10 @@ public class MqController {
     send.send2();
     System.out.println("发送完成");
   }
+
+  @GetMapping("/sendTestMq")
+  public void sendTestMq(){
+    send.sendTest();
+    System.out.println("发送完成");
+  }
 }

@@ -9,6 +9,8 @@ public class MqConstant {
 
   public static final String QUEUE_NAME = "message";
 
+  public static final String QUEUE_DEMO = "demo.queue";
+
   public static final String QUEUE_SDYIN_DEMO = "com.sdyin.demo";
 
   public static final String QUEUE_RMM_DEMO = "com.rmm.demo";

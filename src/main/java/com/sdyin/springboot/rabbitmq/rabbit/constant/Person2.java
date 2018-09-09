@@ -18,11 +18,4 @@ public class Person2 implements Serializable{
 
   private String name;
 
-  @Override
-  public String toString() {
-    return "Person2{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            '}';
-  }
 }

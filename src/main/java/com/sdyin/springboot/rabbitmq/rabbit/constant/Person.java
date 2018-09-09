@@ -14,11 +14,14 @@ public class Person {
 
   private String name;
 
+  private String nikeName;
+
   @Override
   public String toString() {
     return "Person{" +
             "id=" + id +
             ", name='" + name + '\'' +
+            ", nikeName='" + nikeName + '\'' +
             '}';
   }
 }

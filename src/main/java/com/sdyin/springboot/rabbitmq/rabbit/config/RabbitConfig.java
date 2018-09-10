@@ -24,12 +24,14 @@ public class RabbitConfig {
    */
   @Bean
   public Queue Queue() {
+
     return new Queue(MqConstant.QUEUE_NAME);
   }
 
   @Bean
   public Queue QueueDemo(){
-    return new Queue(MqConstant.QUEUE_DEMO);
+    //第二个参数: durable: true 消息持久化
+    return new Queue(MqConstant.QUEUE_DEMO,true);
   }
 
   @Bean

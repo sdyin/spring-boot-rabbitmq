@@ -2,6 +2,7 @@ package com.sdyin.springboot.rabbitmq.rabbit.simple;
 
 import com.rabbitmq.client.Channel;
 import com.sdyin.springboot.rabbitmq.rabbit.constant.MqConstant;
+import com.sdyin.springboot.rabbitmq.rabbit.constant.Person2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,6 +27,12 @@ public class Receive {
   @RabbitListener(queues = MqConstant.QUEUE_NAME)
   public void receive(String message){
     System.out.println("接收mq消息:"+ message);
+  }
+
+  @RabbitListener(queues = MqConstant.QUEUE_DEMO)
+  public void receiveTest(Person2 person2){
+    System.out.println("接收实体类MQ");
+    System.out.println(person2.toString());
   }
 
   /**

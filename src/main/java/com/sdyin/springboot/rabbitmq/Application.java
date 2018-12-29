@@ -12,5 +12,6 @@ public class Application {
 
 	public void test(){
 		System.out.println("提交1");
+		System.out.println("提交2");
 	}
 }

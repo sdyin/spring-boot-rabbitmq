@@ -14,6 +14,6 @@ public class Application {
 		System.out.println("提交1");
 		System.out.println("提交2");
 
-		System.out.println("master rebase");
+		System.out.println("------master rebase");
 	}
 }

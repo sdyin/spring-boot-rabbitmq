@@ -1,12 +1,13 @@
-
+server:
+  port: 8083
 spring:
   application:
     name: springboot-rabbitmq
   rabbitmq:
-    host: 120.79.23.207
-    port: 5673
-    username: liuye
-    password: liuye
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
     virtualHost: /
     #开启发送确认,返回
     publisher-confirms: true

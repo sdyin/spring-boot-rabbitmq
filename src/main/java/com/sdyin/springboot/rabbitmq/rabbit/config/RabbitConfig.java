@@ -10,6 +10,9 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author: liuye
  * @Date: 2018/8/29 19:36
@@ -32,6 +35,22 @@ public class RabbitConfig {
   public Queue QueueDemo(){
     //第二个参数: durable: true 消息持久化
     return new Queue(MqConstant.QUEUE_DEMO,true);
+  }
+
+  @Bean
+  public Queue delayQueue1(){
+    //设置参数
+    Map<String, Object> map = new HashMap<>();
+    //消息过期后，消息要进入的交换机，这里配置的是delay，也就是死信交换机
+    map.put("x-dead-letter-exchange", MqConstant.DELAY_EXCHANGE);
+    //配置消息过期后，进入死信交换机的routing-key,跟发送消息的routing-key一个道理，根据这个key将消息放入不同的队列
+    map.put("x-dead-letter-routing-key", MqConstant.ROUTING_KEY2);
+    return new Queue(MqConstant.DELAY_QUEUE1, true, false, false, map);
+  }
+
+  @Bean
+  public Queue delayQueue2(){
+    return new Queue(MqConstant.DELAY_QUEUE2, true);
   }
 
   @Bean
@@ -69,6 +88,19 @@ public class RabbitConfig {
   }
 
   /**
+   * 普通直连交换机(此交换机用于延迟队列使用)
+   *  FanoutExchange: 将消息分发到所有的绑定队列，无routingkey的概念
+   *  HeadersExchange ：通过添加属性key-value匹配
+   *  DirectExchange:按照routingkey分发到指定队列
+   *  TopicExchange:多关键字匹配
+   * @return
+   */
+  @Bean
+  DirectExchange delayDirectExchange(){
+    return new DirectExchange(MqConstant.DELAY_EXCHANGE , true, false);
+  }
+
+  /**
    * 队列绑定交换机
    * @param fanoutQueueB
    * @param fanoutExchange
@@ -82,6 +114,16 @@ public class RabbitConfig {
   @Bean
   Binding bindingExchangeB(Queue fanoutQueueC, FanoutExchange fanoutExchange) {
     return BindingBuilder.bind(fanoutQueueC).to(fanoutExchange);
+  }
+
+  @Bean
+  Binding bindingDelayDirectExchangeQueue1(Queue delayQueue1, DirectExchange delayDirectExchange){
+    return BindingBuilder.bind(delayQueue1).to(delayDirectExchange).with(MqConstant.ROUTING_KEY1);
+  }
+
+  @Bean
+  Binding bindingDelayDirectExchangeQueue2(Queue delayQueue2, DirectExchange delayDirectExchange){
+    return BindingBuilder.bind(delayQueue2).to(delayDirectExchange).with(MqConstant.ROUTING_KEY2);
   }
 
   /**
